@@ -4,8 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT+= bluetooth
+QT       += core gui bluetooth
+android{
+QT += androidextras
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

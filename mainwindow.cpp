@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include <QtBluetooth>
 #include <vector>
 #include <QMessageBox>
 
@@ -15,10 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
 
-    // temperature = ui->TempSpinBox->value();
-    // time = ui->timeSpinBox->value();
     tmr = new QTimer();
-    connect(tmr, SIGNAL(timeout()), this, SLOT(updateLabel()));
+    connect(tmr, SIGNAL(timeout()), this, SLOT(updateState()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(controllerReader()));
 
 }
@@ -36,9 +33,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_on_clicked()
 {
     socket->write("ON|");
-    //QMessageBox::about(this,"","ON button");
 }
-
 
 void MainWindow::on_off_clicked()
 {
@@ -49,63 +44,56 @@ void MainWindow::on_StartStopButton_clicked()
 {
     if(ui->StartStopButton->text() == "Start")
     {
+        if(ui->TempSpinBox->value()<1||ui->timeSpinBox->value()<1)
+        {
+            QMessageBox::warning(this,"","You have to set parametres.\nParametrs can't be equal 0.");
+            return;
+        }
         socket->open(QIODevice::ReadWrite);
         if(!tmr->isActive())
+        {
             tmr->start(100);
+        }
+
         ui->StartStopButton->setText("Stop");
+
         command = "T"+QString::number(ui->TempSpinBox->value())+"|";
         socket->write(command.toUtf8());
+
         command = "D"+QString::number(ui->timeSpinBox->value())+"|";
         socket->write(command.toUtf8());
+
         runnning = false;
     }
     else
     {
         ui->StartStopButton->setText("Start");
-        tmr->stop();
-        socket->write("s|");
+        ui->lcdNumber->display("0");
+        if(tmr->isActive())
+        {
+            tmr->stop();
+        }
 
+        socket->write("s|");
 
         runnning = true;
     }
 }
 
-void MainWindow::updateLabel()
+void MainWindow::updateState()
 {
-
-    /*if(socket->isReadable())
-    {
-        ui->lcdNumber->display(QString::number(socket->QIODevice::bytesAvailable()));
-        //receivedData = socket->readAll().toInt();
-        //QString str = "JOPA";
-        str = socket->readLine(3);
-
-
-        if(str.toInt()>0)
-        {
-            ui->lcdNumber->display(str.toInt());
-            //ui->SensTempLabel->setText(str);
-            // ui->SensTempLabel->setText(str);
-
-        }
-        str.clear();
-    }*/
-
-    //}
     if(!socket->isOpen())
-
     {
-
-        //socket->isSignalConnected();
-        // socket->
-
-        if(errorShowed)
-        {return;}
-        QMessageBox::warning(this,"","Connection problem");
-        errorShowed = true;
-        socket->abort();
-        ui->StartStopButton->setText("Start");
-        ui->StartStopButton->setEnabled(false);
+        if(errorShowed){return;}
+        connectToDevice(addressToConnect);
+        if(socket->peerAddress().toString()!=addressToConnect)
+        {
+            QMessageBox::warning(this,"","Connection problem");
+            errorShowed = true;
+            socket->abort();
+            ui->StartStopButton->setText("Start");
+            ui->StartStopButton->setEnabled(false);
+        }
     }
 }
 
@@ -113,30 +101,19 @@ void MainWindow::getAddress(const QString &str)
 {
     addressToConnect = "";
     addressToConnect = str;
-    connectToDevice(str);
-    //QMessageBox::about(this,"",addressToConnect);
+    connectToDevice(addressToConnect);
 }
 
 void MainWindow::controllerReader()
 {
     if(socket->isReadable())
     {
-        //ui->lcdNumber->display(QString::number(socket->QIODevice::bytesAvailable()));
-        //receivedData = socket->readAll().toInt();
-        //QString str = "JOPA";
-        str = socket->readLine(3);
-
-        /* if(str.startsWith('|'))
+        receivedInfo = socket->readLine(3);
+        if(receivedInfo.toInt()>0)
         {
-            str = str.remove(QRegExp("[|]."));*/
-        if(str.toInt()>0)
-        {
-            ui->lcdNumber->display(str.toInt());
-            //ui->SensTempLabel->setText(str);
-            // ui->SensTempLabel->setText(str);
-
+            ui->lcdNumber->display(receivedInfo.toInt());
         }
-        str.clear();
+        receivedInfo.clear();
     }
 }
 

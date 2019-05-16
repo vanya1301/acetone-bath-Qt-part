@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
+//#include <QtAndroidExtras>
 #include <QMainWindow>
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
@@ -34,7 +34,7 @@ private slots:
     void on_on_clicked();
     void on_off_clicked();
     void on_StartStopButton_clicked();
-    void updateLabel();
+    void updateState();
     void getAddress(const QString& str);
     void controllerReader();
     void on_PairButton_clicked();
@@ -45,7 +45,7 @@ private:
     QBluetoothSocket *socket;
     QString addressToConnect;
     QString command;
-    QString str="";
+    QString receivedInfo="";
     QTimer *tmr;
     bool errorShowed =false;
     int receivedData;
