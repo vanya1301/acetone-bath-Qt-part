@@ -63,7 +63,7 @@ void MainWindow::on_StartStopButton_clicked()
         command = "D"+QString::number(ui->timeSpinBox->value())+"|";
         socket->write(command.toUtf8());
 
-        runnning = false;
+        runnning = true;
     }
     else
     {
@@ -106,9 +106,16 @@ void MainWindow::getAddress(const QString &str)
 
 void MainWindow::controllerReader()
 {
-    if(socket->isReadable())
+    if(socket->isReadable()&& runnning)
     {
+
         receivedInfo = socket->readLine(3);
+        if(receivedInfo=="s")
+        {
+            tmr->stop();
+            ui->StartStopButton->setText("Start");
+            ui->lcdNumber->display(0);
+        }
         if(receivedInfo.toInt()>0)
         {
             ui->lcdNumber->display(receivedInfo.toInt());
