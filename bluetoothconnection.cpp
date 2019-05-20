@@ -13,8 +13,6 @@ BluetoothConnection::BluetoothConnection(QWidget *parent) :
     agent->start();
     ui->connectButton->setEnabled(false);
     addressToConnect = "";
-
-
 }
 
 BluetoothConnection::~BluetoothConnection()
@@ -37,12 +35,12 @@ void BluetoothConnection::deviceDiscovered(const QBluetoothDeviceInfo &device)
 void BluetoothConnection::on_connectButton_clicked()
 {
     sendAddress();
-    this->hide();
+    this->close();
 
 }
 void BluetoothConnection::on_exitButton_clicked()
 {
-    this->hide();
+    this->close();
 }
 
 

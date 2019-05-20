@@ -3,13 +3,13 @@
 
 //#include <QtAndroidExtras>
 #include <QMainWindow>
-#include <QBluetoothDeviceDiscoveryAgent>
+//#include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
 #include <QListWidget>
-#include <QBluetoothDeviceDiscoveryAgent>
 #include <QTextEdit>
 #include <string>
 #include <QTimer>
+#include <QElapsedTimer>
 #include "bluetoothconnection.h"
 //#include <QLCDNumber>
 
@@ -31,8 +31,6 @@ public:
 
 
 private slots:
-    void on_on_clicked();
-    void on_off_clicked();
     void on_StartStopButton_clicked();
     void updateState();
     void getAddress(const QString& str);
@@ -42,6 +40,7 @@ private slots:
 private:
     void connectToDevice(const QString& str);
     Ui::MainWindow *ui;
+    BluetoothConnection window;
     QBluetoothSocket *socket;
     QString addressToConnect;
     QString command;

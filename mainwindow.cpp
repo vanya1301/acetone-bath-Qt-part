@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <vector>
 #include <QMessageBox>
+#include <QDebug>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tmr = new QTimer();
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateState()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(controllerReader()));
+    //tmr->1
 
 }
 
@@ -30,15 +32,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_on_clicked()
-{
-    socket->write("ON|");
-}
 
-void MainWindow::on_off_clicked()
-{
-    socket->write("OFF|");
-}
 
 void MainWindow::on_StartStopButton_clicked()
 {
@@ -82,12 +76,14 @@ void MainWindow::on_StartStopButton_clicked()
 
 void MainWindow::updateState()
 {
+    qDebug()<<socket->state();
     if(!socket->isOpen())
     {
         if(errorShowed){return;}
-        connectToDevice(addressToConnect);
-        if(socket->peerAddress().toString()!=addressToConnect)
+        //connectToDevice(addressToConnect);
+        if(socket->state()!=QBluetoothSocket::ConnectedState)
         {
+            //QBluetoothSocket::ConnectedState;
             QMessageBox::warning(this,"","Connection problem");
             errorShowed = true;
             socket->abort();
@@ -102,6 +98,7 @@ void MainWindow::getAddress(const QString &str)
     addressToConnect = "";
     addressToConnect = str;
     connectToDevice(addressToConnect);
+
 }
 
 void MainWindow::controllerReader()
@@ -109,17 +106,37 @@ void MainWindow::controllerReader()
     if(socket->isReadable()&& runnning)
     {
 
-        receivedInfo = socket->readLine(3);
-        if(receivedInfo=="s")
+        receivedInfo = socket->readLine(5);
+        qDebug()<<receivedInfo<<endl;
+        if(receivedInfo.startsWith("t"))
+        {
+            receivedInfo.remove(QChar('t'), Qt::CaseInsensitive);
+            receivedInfo = receivedInfo.trimmed();
+            if(receivedInfo.toInt()>0)
+            {
+                ui->lcdNumber->display(receivedInfo.toInt());
+            }
+        }
+
+        else if(receivedInfo.startsWith("m"))
+        {
+            receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
+            receivedInfo = receivedInfo.trimmed();
+            if(receivedInfo.toInt()>0)
+            {
+                ui->lcdNumber_2->display(receivedInfo.toInt());
+            }
+        }
+        else if(receivedInfo=="s")
         {
             tmr->stop();
             ui->StartStopButton->setText("Start");
             ui->lcdNumber->display(0);
         }
-        if(receivedInfo.toInt()>0)
+        /*if(receivedInfo.toInt()>0)
         {
             ui->lcdNumber->display(receivedInfo.toInt());
-        }
+        }*/
         receivedInfo.clear();
     }
 }
@@ -143,7 +160,10 @@ void MainWindow::connectToDevice(const QString &str)
 
 void MainWindow::on_PairButton_clicked()
 {
-    BluetoothConnection window;
+    if(socket->isOpen())
+        socket->close();
+
+
     connect(&window,SIGNAL(signalAddress(const QString&)),this,SLOT(getAddress(const QString&)));
     window.setModal(true);
     window.showMaximized();
