@@ -3,16 +3,21 @@
 #include <QtBluetooth>
 #include <QMessageBox>
 #include <QString>
+
+
 BluetoothConnection::BluetoothConnection(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BluetoothConnection)
 {
     ui->setupUi(this);
+
     connect(agent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
             this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+
     agent->start();
     ui->connectButton->setEnabled(false);
     addressToConnect = "";
+
 }
 
 BluetoothConnection::~BluetoothConnection()
@@ -35,12 +40,12 @@ void BluetoothConnection::deviceDiscovered(const QBluetoothDeviceInfo &device)
 void BluetoothConnection::on_connectButton_clicked()
 {
     sendAddress();
-    this->close();
+    this->hide();
 
 }
 void BluetoothConnection::on_exitButton_clicked()
 {
-    this->close();
+    this->hide();
 }
 
 

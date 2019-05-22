@@ -6,6 +6,7 @@
 #include <vector>
 #include <QListWidget>
 
+
 namespace Ui {
 class BluetoothConnection;
 }

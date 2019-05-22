@@ -47,10 +47,11 @@ private:
     QString receivedInfo="";
     QTimer *tmr;
     bool errorShowed =false;
-    int receivedData;
    // int temperature;
    // int time;
-    bool runnning=false;  
+    bool runnning=false;
+
+
 };
 
 

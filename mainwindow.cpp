@@ -1,8 +1,9 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <vector>
 #include <QMessageBox>
 #include <QDebug>
+
 
 using namespace std;
 
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     tmr = new QTimer();
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateState()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(controllerReader()));
+
+
     //tmr->1
 
 }
@@ -46,7 +49,7 @@ void MainWindow::on_StartStopButton_clicked()
         socket->open(QIODevice::ReadWrite);
         if(!tmr->isActive())
         {
-            tmr->start(100);
+            tmr->start(1000);
         }
 
         ui->StartStopButton->setText("Stop");
@@ -57,12 +60,14 @@ void MainWindow::on_StartStopButton_clicked()
         command = "D"+QString::number(ui->timeSpinBox->value())+"|";
         socket->write(command.toUtf8());
 
-        runnning = true;
+        //runnning = true;
     }
     else
     {
         ui->StartStopButton->setText("Start");
-        ui->lcdNumber->display("0");
+        ui->lcdNumber->display(0);
+        ui->lcdNumber_2->display(0);
+
         if(tmr->isActive())
         {
             tmr->stop();
@@ -70,13 +75,13 @@ void MainWindow::on_StartStopButton_clicked()
 
         socket->write("s|");
 
-        runnning = true;
+        //runnning = true;
     }
 }
 
 void MainWindow::updateState()
 {
-    qDebug()<<socket->state();
+    // qDebug()<<socket->state();
     if(!socket->isOpen())
     {
         if(errorShowed){return;}
@@ -103,58 +108,87 @@ void MainWindow::getAddress(const QString &str)
 
 void MainWindow::controllerReader()
 {
-    if(socket->isReadable()&& runnning)
+    // if(socket->isReadable())
+    //{
+    receivedInfo = socket->readLine();
+    qDebug()<<receivedInfo<<endl;
+    if(receivedInfo.startsWith("t"))
     {
+        if(ui->StartStopButton->text()=="Start")
+            ui->StartStopButton->setText("Stop");
 
-        receivedInfo = socket->readLine(5);
-        qDebug()<<receivedInfo<<endl;
-        if(receivedInfo.startsWith("t"))
-        {
-            receivedInfo.remove(QChar('t'), Qt::CaseInsensitive);
-            receivedInfo = receivedInfo.trimmed();
-            if(receivedInfo.toInt()>0)
-            {
-                ui->lcdNumber->display(receivedInfo.toInt());
-            }
-        }
-
-        else if(receivedInfo.startsWith("m"))
-        {
-            receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
-            receivedInfo = receivedInfo.trimmed();
-            if(receivedInfo.toInt()>0)
-            {
-                ui->lcdNumber_2->display(receivedInfo.toInt());
-            }
-        }
-        else if(receivedInfo=="s")
-        {
-            tmr->stop();
-            ui->StartStopButton->setText("Start");
-            ui->lcdNumber->display(0);
-        }
-        /*if(receivedInfo.toInt()>0)
+        receivedInfo.remove(QChar('t'), Qt::CaseInsensitive);
+        receivedInfo = receivedInfo.trimmed();
+        if(receivedInfo.toInt()>0)
         {
             ui->lcdNumber->display(receivedInfo.toInt());
-        }*/
-        receivedInfo.clear();
+        }
     }
-}
 
-void MainWindow::connectToDevice(const QString &str)
-{
-    static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
-    socket->connectToService(QBluetoothAddress(str), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
+    else if(receivedInfo.startsWith("m"))
+    {
+        receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
+        receivedInfo = receivedInfo.trimmed();
+        if(receivedInfo.toInt()>60){
+            ui->lcdNumber_2->display(receivedInfo.toInt()/60+1);
+            ui->label_2->setText("min.");
+        }
+        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>=5) {
+            ui->lcdNumber_2->display(receivedInfo.toInt());
+            ui->label_2->setText("sec.");
+        }
+        else if(receivedInfo.toInt()<=2){
+            tmr->stop();
+            QMessageBox::about(this,"","Proccess is finished!");
+            ui->StartStopButton->setText("Start");
+            ui->lcdNumber->display(0);
+            ui->lcdNumber_2->display(0);
+            ui->label_2->setText("min.");
+        }
 
-    if(socket->peerAddress().toString()==str)
+    }
+    /*else if(receivedInfo.startsWith("D"))
+    {
+        tmr->stop();
+        QMessageBox::about(this,"","Proccess is finished!");
+        ui->StartStopButton->setText("Start");
+        ui->lcdNumber->display(0);
+        ui->lcdNumber_2->display(0);
+    }*/
+    else if (receivedInfo.startsWith("R"))
     {
         QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
         ui->StartStopButton->setEnabled(true);
     }
+    /*if(receivedInfo.toInt()>0)
+        {
+            ui->lcdNumber->display(receivedInfo.toInt());
+        }*/
+    receivedInfo.clear();
+    // }
+}
+
+void MainWindow::connectToDevice(const QString &str)
+{
+    qDebug()<<"connectToDevice HERE!!!!"<<endl;
+    static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
+    socket->connectToService(QBluetoothAddress(str), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
+    QMessageBox::about(this,"","Connecting...");
+   // QMessageBox::
+    /* while(!socket->readLine().startsWith("R"))
+    {
+
+}*/
+
+    /*if(socket->peerAddress().toString()==str)
+    {
+        QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
+        //ui->StartStopButton->setEnabled(true);
+    }
 
     else {
-        QMessageBox::warning(this,"","Connection error");
-    }
+    QMessageBox::warning(this,"","Connection error");
+}*/
 
 }
 
@@ -162,6 +196,8 @@ void MainWindow::on_PairButton_clicked()
 {
     if(socket->isOpen())
         socket->close();
+
+
 
 
     connect(&window,SIGNAL(signalAddress(const QString&)),this,SLOT(getAddress(const QString&)));
