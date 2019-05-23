@@ -36,7 +36,6 @@ private slots:
 
 private:
     void sendAddress();
-
     Ui::BluetoothConnection *ui;
     QBluetoothDeviceDiscoveryAgent *agent = new QBluetoothDeviceDiscoveryAgent;
     struct BlDevice{QString name;QString address;};
