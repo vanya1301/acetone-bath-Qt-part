@@ -61,7 +61,7 @@ void MainWindow::on_StartStopButton_clicked()
         command = "D"+QString::number(ui->timeSpinBox->value())+"|";
         socket->write(command.toUtf8());
 
-        //runnning = true;
+        runnning = true;
     }
     else
     {
@@ -76,7 +76,7 @@ void MainWindow::on_StartStopButton_clicked()
 
         socket->write("s|");
 
-        //runnning = true;
+        runnning = false;
     }
 }
 
@@ -87,8 +87,9 @@ void MainWindow::updateState()
     {
         if(errorShowed){return;}
         //connectToDevice(addressToConnect);
-        if(socket->state()!=QBluetoothSocket::ConnectedState)
+        if(socket->state()!=QBluetoothSocket::ConnectedState||socket->peerAddress().toString()!=addressToConnect)
         {
+            if(socket->QBluetoothSocket::ConnectedState)
             //QBluetoothSocket::ConnectedState;
             QMessageBox::warning(this,"","Connection problem");
             errorShowed = true;
@@ -115,7 +116,7 @@ void MainWindow::controllerReader()
     qDebug()<<receivedInfo<<endl;
     if(receivedInfo.startsWith("t"))
     {
-        if(ui->StartStopButton->text()=="Start")
+        if(ui->StartStopButton->text()=="Start" && runnning)
         {
             ui->StartStopButton->setText("Stop");
             ui->StartStopButton->setEnabled(true);
