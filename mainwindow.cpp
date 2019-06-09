@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->StartStopButton->setEnabled(false);
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512.png"));
+    ui->PairButton->setIconSize(QSize(60,60));
 
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
 
@@ -48,10 +50,7 @@ void MainWindow::on_StartStopButton_clicked()
             return;
         }
         socket->open(QIODevice::ReadWrite);
-        if(!tmr->isActive())
-        {
-            tmr->start(1000);
-        }
+
 
         ui->StartStopButton->setText("Stop");
 
@@ -82,22 +81,23 @@ void MainWindow::on_StartStopButton_clicked()
 
 void MainWindow::updateState()
 {
-    // qDebug()<<socket->state();
-    if(!socket->isOpen())
+    qDebug()<<socket->state()<<endl;
+    qDebug()<<QBluetoothSocket::ConnectedState<<endl<<endl;
+    //{
+    if(errorShowed){return;}
+    //connectToDevice(addressToConnect);
+    if(socket->state()!=QBluetoothSocket::ConnectedState||socket->peerAddress().toString()!=addressToConnect)
     {
-        if(errorShowed){return;}
-        //connectToDevice(addressToConnect);
-        if(socket->state()!=QBluetoothSocket::ConnectedState||socket->peerAddress().toString()!=addressToConnect)
-        {
-            if(socket->QBluetoothSocket::ConnectedState)
-            //QBluetoothSocket::ConnectedState;
-            QMessageBox::warning(this,"","Connection problem");
-            errorShowed = true;
-            socket->abort();
-            ui->StartStopButton->setText("Start");
-            ui->StartStopButton->setEnabled(false);
-        }
+        //if(socket->QBluetoothSocket::ConnectedState)
+        //QBluetoothSocket::ConnectedState;
+        QMessageBox::warning(this,"","Connection problem");
+        errorShowed = true;
+        socket->abort();
+        ui->StartStopButton->setText("Start");
+        ui->StartStopButton->setEnabled(false);
+        ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512.png"));
     }
+    // }
 }
 
 void MainWindow::getAddress(const QString &str)
@@ -112,6 +112,7 @@ void MainWindow::controllerReader()
 {
     // if(socket->isReadable())
     //{
+
     receivedInfo = socket->readLine();
     qDebug()<<receivedInfo<<endl;
     if(receivedInfo.startsWith("t"))
@@ -123,7 +124,7 @@ void MainWindow::controllerReader()
         }
         receivedInfo.remove(QChar('t'), Qt::CaseInsensitive);
         receivedInfo = receivedInfo.trimmed();
-        if(receivedInfo.toInt()>0)
+        if(receivedInfo.toInt()>0 && runnning)
         {
             ui->lcdNumber->display(receivedInfo.toInt());
         }
@@ -133,11 +134,11 @@ void MainWindow::controllerReader()
     {
         receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
         receivedInfo = receivedInfo.trimmed();
-        if(receivedInfo.toInt()>60){
+        if(receivedInfo.toInt()>60 && runnning){
             ui->lcdNumber_2->display(receivedInfo.toInt()/60+1);
             ui->label_2->setText("min.");
         }
-        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>=5) {
+        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>=5 && runnning) {
             ui->lcdNumber_2->display(receivedInfo.toInt());
             ui->label_2->setText("sec.");
         }
@@ -156,45 +157,33 @@ void MainWindow::controllerReader()
     {
         QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
         ui->StartStopButton->setEnabled(true);
-    }
-    /*if(receivedInfo.toInt()>0)
+        ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512-green.png"));
+        ui->BluetoothDeviceNameLabel->setText(socket->peerName());
+        if(!tmr->isActive())
         {
-            ui->lcdNumber->display(receivedInfo.toInt());
-        }*/
+            tmr->start(1000);
+        }
+    }
     receivedInfo.clear();
-    // }
+
+
 }
 
 void MainWindow::connectToDevice(const QString &str)
 {
     qDebug()<<"connectToDevice HERE!!!!"<<endl;
+
     static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
     socket->connectToService(QBluetoothAddress(str), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
     QMessageBox::about(this,"","Connecting...");
-    // QMessageBox::
-    /* while(!socket->readLine().startsWith("R"))
-    {
-
-}*/
-
-    /*if(socket->peerAddress().toString()==str)
-    {
-        QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
-        //ui->StartStopButton->setEnabled(true);
-    }
-
-    else {
-    QMessageBox::warning(this,"","Connection error");
-}*/
 
 }
 
 void MainWindow::on_PairButton_clicked()
 {
-    if(socket->isOpen())
+    if(socket->isOpen()){
         socket->close();
-
-
+    }
 
 
 

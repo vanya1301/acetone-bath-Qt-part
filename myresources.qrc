@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/MyFiles/images">
+        <file>Bluetooth-512.png</file>
+        <file>Bluetooth-512-green.png</file>
+    </qresource>
+</RCC>
