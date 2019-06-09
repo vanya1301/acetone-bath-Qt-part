@@ -88,8 +88,6 @@ void MainWindow::updateState()
     //connectToDevice(addressToConnect);
     if(socket->state()!=QBluetoothSocket::ConnectedState||socket->peerAddress().toString()!=addressToConnect)
     {
-        //if(socket->QBluetoothSocket::ConnectedState)
-        //QBluetoothSocket::ConnectedState;
         QMessageBox::warning(this,"","Connection problem");
         errorShowed = true;
         socket->abort();
