@@ -158,7 +158,7 @@ void MainWindow::controllerReader()
         receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
         receivedInfo = receivedInfo.trimmed();
         if(receivedInfo.toInt()>60 && runnning){
-            ui->lcdNumber_2->display(receivedInfo.toInt()/60);
+            ui->lcdNumber_2->display(receivedInfo.toInt()/60+1);
             ui->label_2->setText("min.");
         }
         else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>=5 && runnning) {
