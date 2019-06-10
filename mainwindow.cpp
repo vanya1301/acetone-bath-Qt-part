@@ -94,10 +94,10 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
         ui->lcdNumber->display(0);
         ui->lcdNumber_2->display(0);
 
-        if(tmr->isActive())
+        /*if(tmr->isActive())
         {
             tmr->stop();
-        }
+        }*/
 
         socket->write("s|");
 
@@ -107,7 +107,7 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
 
 void MainWindow::updateState()
 {
-    //qDebug()<<socket->state()<<endl;
+    qDebug()<<socket->state()<<endl;
     //qDebug()<<QBluetoothSocket::ConnectedState<<endl<<endl;
     //{
     if(errorShowed){return;}
@@ -121,6 +121,9 @@ void MainWindow::updateState()
         ui->StartStopButton->setEnabled(false);
         ui->pauseButton->setEnabled(false);
         ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512.png"));
+        ui->lcdNumber->display(0);
+        ui->lcdNumber_2->display(0);
+        ui->BluetoothDeviceNameLabel->setText("Reconnect the device ->");
     }
     // }
 }
@@ -166,7 +169,7 @@ void MainWindow::controllerReader()
             ui->label_2->setText("sec.");
         }
         else if(receivedInfo.toInt()<=2){
-            tmr->stop();
+            //tmr->stop();
             QMessageBox::about(this,"","Proccess is finished!");
             setButtonChecked(false);//Start
             ui->lcdNumber->display(0);
