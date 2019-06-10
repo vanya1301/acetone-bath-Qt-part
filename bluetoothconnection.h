@@ -40,6 +40,7 @@ private:
     QBluetoothDeviceDiscoveryAgent *agent = new QBluetoothDeviceDiscoveryAgent;
     struct BlDevice{QString name;QString address;};
     std::vector<BlDevice> devices;
+    BlDevice discovered;
 
 };
 

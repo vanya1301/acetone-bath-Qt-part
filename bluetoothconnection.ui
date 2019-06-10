@@ -16,38 +16,10 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QListWidget" name="listWidget">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>1000</height>
-      </size>
-     </property>
      <property name="font">
       <font>
-       <family>Ubuntu Mono</family>
-       <pointsize>14</pointsize>
+       <pointsize>25</pointsize>
       </font>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
      </property>
     </widget>
    </item>
@@ -65,7 +37,20 @@
         <string notr="true">font-size:30px;</string>
        </property>
        <property name="text">
-        <string>Connect</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="myresources.qrc">
+         <normaloff>:/MyFiles/images/accept-icon.png</normaloff>:/MyFiles/images/accept-icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -81,7 +66,20 @@
         <string notr="true">font-size:30px;</string>
        </property>
        <property name="text">
-        <string>Refresh</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="myresources.qrc">
+         <normaloff>:/MyFiles/images/refresh-icon.png</normaloff>:/MyFiles/images/refresh-icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -97,7 +95,20 @@
         <string notr="true">font-size:30px;</string>
        </property>
        <property name="text">
-        <string>Exit</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="myresources.qrc">
+         <normaloff>:/MyFiles/images/exit-icon.png</normaloff>:/MyFiles/images/exit-icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>55</width>
+         <height>55</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -105,6 +116,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="myresources.qrc"/>
+ </resources>
  <connections/>
 </ui>

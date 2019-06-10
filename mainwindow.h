@@ -31,14 +31,19 @@ public:
 
 
 private slots:
-    void on_StartStopButton_clicked();
+   // void on_StartStopButton_clicked(bool checked);
     void updateState();
     void getAddress(const QString& str);
     void controllerReader();
     void on_PairButton_clicked();
 
+    void on_StartStopButton_clicked(bool checked);
+
+    void on_pauseButton_clicked();
+
 private:
     void connectToDevice(const QString& str);
+    void setButtonChecked(bool a);
     Ui::MainWindow *ui;
     BluetoothConnection window;
     QBluetoothSocket *socket;
@@ -47,6 +52,7 @@ private:
     QString receivedInfo="";
     QTimer *tmr;
     bool errorShowed =false;
+    bool paused = false;
    // int temperature;
    // int time;
     bool runnning=false;

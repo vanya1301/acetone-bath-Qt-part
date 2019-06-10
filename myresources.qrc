@@ -2,5 +2,11 @@
     <qresource prefix="/MyFiles/images">
         <file>Bluetooth-512.png</file>
         <file>Bluetooth-512-green.png</file>
+        <file>Stop-red.png</file>
+        <file>pause-black.png</file>
+        <file>play-green.png</file>
+        <file>accept-icon.png</file>
+        <file>refresh-icon.png</file>
+        <file>exit-icon.png</file>
     </qresource>
 </RCC>

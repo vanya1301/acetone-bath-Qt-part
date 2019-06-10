@@ -14,6 +14,7 @@ BluetoothConnection::BluetoothConnection(QWidget *parent) :
     connect(agent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
             this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
 
+    agent->stop();
     agent->start();
     ui->connectButton->setEnabled(false);
     addressToConnect = "";
@@ -30,7 +31,7 @@ BluetoothConnection::~BluetoothConnection()
 void BluetoothConnection::deviceDiscovered(const QBluetoothDeviceInfo &device)
 {
     //ui->listWidget->clear();
-    BlDevice discovered;
+
     discovered.name=device.name();
     discovered.address=device.address().toString();
     devices.insert(devices.end(),discovered);
