@@ -44,6 +44,7 @@ private slots:
 private:
     void connectToDevice(const QString& str);
     void setButtonChecked(bool a);
+    void showError();
     Ui::MainWindow *ui;
     BluetoothConnection window;
     QBluetoothSocket *socket;
