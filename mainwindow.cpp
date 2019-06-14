@@ -16,9 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pauseButton->setEnabled(false);
 
 
+
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
 
     tmr = new QTimer();
+
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateState()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(controllerReader()));
     connect(&window,SIGNAL(signalAddress(const QString&)),this,SLOT(getAddress(const QString&)));
@@ -110,6 +112,7 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
 
 void MainWindow::updateState()
 {
+    if()
     qDebug()<<socket->state()<<endl;
     //qDebug()<<QBluetoothSocket::ConnectedState<<endl<<endl;
     //{
