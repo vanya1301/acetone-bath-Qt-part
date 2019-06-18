@@ -3,7 +3,6 @@
 
 //#include <QtAndroidExtras>
 #include <QMainWindow>
-//#include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
 #include <QListWidget>
 #include <QTextEdit>
@@ -12,6 +11,8 @@
 #include <QElapsedTimer>
 #include "bluetoothconnection.h"
 //#include <QLCDNumber>
+#include <QLabel>
+#include <QMovie>
 
 
 
@@ -53,6 +54,8 @@ private:
     QString command;
     QString receivedInfo="";
     QTimer *tmr;
+    QLabel *gifLbl;
+    QMovie *gifMovie = new QMovie(":/MyFiles/gifs/ajax-loader2.gif");
     bool errorShowed =false;
     bool paused = false;
    // int temperature;

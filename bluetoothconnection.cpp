@@ -31,6 +31,7 @@ void BluetoothConnection::agentRestart()
 {
     ui->listWidget->clear();
     ui->connectButton->setEnabled(false);
+    devices.clear();
     agent->stop();
     agent->start();
 }
@@ -38,8 +39,6 @@ void BluetoothConnection::agentRestart()
 
 void BluetoothConnection::deviceDiscovered(const QBluetoothDeviceInfo &device)
 {
-    //ui->listWidget->clear();
-
     discovered.name=device.name();
     discovered.address=device.address().toString();
     devices.insert(devices.end(),discovered);
@@ -90,6 +89,7 @@ void BluetoothConnection::on_refreshButton_clicked()
 {
     ui->connectButton->setEnabled(false);
     ui->listWidget->clear();
+    devices.clear();
     agent->stop();
     agent->start();
 }

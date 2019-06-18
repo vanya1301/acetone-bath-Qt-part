@@ -9,4 +9,8 @@
         <file>refresh-icon.png</file>
         <file>exit-icon.png</file>
     </qresource>
+    <qresource prefix="/MyFiles/gifs">
+        <file>ajax-loader.gif</file>
+        <file>ajax-loader2.gif</file>
+    </qresource>
 </RCC>
