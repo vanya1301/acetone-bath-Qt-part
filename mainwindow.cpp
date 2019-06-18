@@ -77,7 +77,6 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
             tmr->start(1000);
         }
 
-        //ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/Stop-red.png"));
         setButtonChecked(true);
         ui->pauseButton->setEnabled(true);
 
@@ -92,18 +91,9 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
     else
     {
         qDebug()<<"Not Checked";
-        //ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/play-green.png"));
-        setButtonChecked(false);
-        //        ui->StartStopButton->setDefault(true);
         ui->pauseButton->setEnabled(false);
         ui->lcdNumber->display(0);
         ui->lcdNumber_2->display(0);
-
-        /*if(tmr->isActive())
-        {
-            tmr->stop();
-        }*/
-
         socket->write("s|");
 
         runnning = false;
@@ -112,8 +102,8 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
 
 void MainWindow::updateState()
 {
-    if()
-    qDebug()<<socket->state()<<endl;
+    //if()
+    qDebug()<<"UPDATE_STATE() "<<errorShowed<<endl;
     //qDebug()<<QBluetoothSocket::ConnectedState<<endl<<endl;
     //{
     if(errorShowed){return;}
@@ -140,6 +130,13 @@ void MainWindow::controllerReader()
     qDebug()<<receivedInfo<<endl;
     if(receivedInfo.startsWith("t"))
     {
+        if(!ui->StartStopButton->isEnabled())
+        {
+            ui->StartStopButton->setEnabled(true);
+            showConnected();
+            setButtonChecked(true);
+            runnning = true;
+        }
         if(!ui->StartStopButton->isChecked() && runnning && !paused)
         {
             setButtonChecked(true);//Stop
@@ -162,11 +159,11 @@ void MainWindow::controllerReader()
             ui->lcdNumber_2->display(receivedInfo.toInt()/60+1);
             ui->label_2->setText("min.");
         }
-        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>=5 && runnning) {
+        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>1 && runnning) {
             ui->lcdNumber_2->display(receivedInfo.toInt());
             ui->label_2->setText("sec.");
         }
-        else if(receivedInfo.toInt()<=2){
+        else if(receivedInfo.toInt()<=1){
             //tmr->stop();
             QMessageBox::about(this,"","Proccess is finished!");
             setButtonChecked(false);//Start
@@ -180,10 +177,8 @@ void MainWindow::controllerReader()
 
     if (receivedInfo.startsWith("R"))
     {
-        QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
-        ui->StartStopButton->setEnabled(true);
-        ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512-green.png"));
-        ui->BluetoothDeviceNameLabel->setText(socket->peerName());
+        showConnected();
+        ui->StartStopButton->setChecked(false);
         if(!tmr->isActive())
         {
             tmr->start(1000);
@@ -220,6 +215,15 @@ void MainWindow::showError()
     ui->BluetoothDeviceNameLabel->setText("Reconnect the device ->");
 }
 
+void MainWindow::showConnected()
+{
+    QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
+    ui->StartStopButton->setEnabled(true);
+    ui->pauseButton->setEnabled(true);
+    ui->BluetoothDeviceNameLabel->setText(socket->peerName());
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512-green.png"));
+}
+
 void MainWindow::connectToDevice(const QString &str)
 {
     qDebug()<<"connectToDevice HERE!!!!"<<endl;
@@ -235,9 +239,17 @@ void MainWindow::connectToDevice(const QString &str)
 
 void MainWindow::on_PairButton_clicked()
 {
-    window.setModal(true);
-    window.showMaximized();
-    window.exec();
+    if(window.isHidden()){
+        window.agentRestart();
+        window.setModal(true);
+        window.showMaximized();
+    }
+    else {
+        window.setModal(true);
+        window.showMaximized();
+        window.exec();
+    }
+
 }
 
 
@@ -247,5 +259,4 @@ void MainWindow::on_pauseButton_clicked()
     paused = true;
     runnning = false;
     setButtonChecked(false);
-    //ui->StartStopButton->setDefault(true);
 }

@@ -27,6 +27,14 @@ BluetoothConnection::~BluetoothConnection()
     delete ui;
 }
 
+void BluetoothConnection::agentRestart()
+{
+    ui->listWidget->clear();
+    ui->connectButton->setEnabled(false);
+    agent->stop();
+    agent->start();
+}
+
 
 void BluetoothConnection::deviceDiscovered(const QBluetoothDeviceInfo &device)
 {

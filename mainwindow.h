@@ -45,6 +45,7 @@ private:
     void connectToDevice(const QString& str);
     void setButtonChecked(bool a);
     void showError();
+    void showConnected();
     Ui::MainWindow *ui;
     BluetoothConnection window;
     QBluetoothSocket *socket;

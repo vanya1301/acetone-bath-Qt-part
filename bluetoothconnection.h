@@ -18,7 +18,7 @@ class BluetoothConnection : public QDialog
 public:
     explicit BluetoothConnection(QWidget *parent = nullptr);
     ~BluetoothConnection();
-
+    void agentRestart();
     QString addressToConnect;
 signals:
     void signalAddress(const QString&);
