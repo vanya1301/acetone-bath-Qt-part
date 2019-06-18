@@ -16,13 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->StartStopButton->setEnabled(false);
     ui->pauseButton->setEnabled(false);
 
-    gifLbl = new QLabel(this);
+    /*gifLbl = new QLabel(this);
     gifLbl->setMovie(gifMovie);
     gifLbl->showMaximized();
-    gifMovie->start();
-    //gifLbl->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    gifLbl->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    QMessageBox::question(this,"Popa","Pipa",2);
+    gifMovie->start();*/
+
+
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
 
     tmr = new QTimer();
@@ -219,8 +218,8 @@ void MainWindow::showError()
 
 void MainWindow::showConnected()
 {
-    gifMovie->stop();
-    gifLbl->hide();
+    /*gifMovie->stop();
+    gifLbl->hide();*/
     QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
     ui->StartStopButton->setEnabled(true);
     ui->pauseButton->setEnabled(true);
@@ -239,11 +238,11 @@ void MainWindow::connectToDevice(const QString &str)
     socket->connectToService(QBluetoothAddress(str), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
     //QMessageBox::about(this,"","Connecting...");
 
-    //gifLbl->setScaledContents(true);
+    /*gifLbl->setScaledContents(true);
 
     gifLbl->showNormal();
     //gifLbl->show();
-    gifMovie->start();
+    gifMovie->start();*/
 
 }
 
