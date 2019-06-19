@@ -96,7 +96,7 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
         ui->lcdNumber->display(0);
         ui->lcdNumber_2->display(0);
         socket->write("s|");
-
+        setButtonChecked(false);
         runnning = false;
     }
 }
@@ -160,11 +160,11 @@ void MainWindow::controllerReader()
             ui->lcdNumber_2->display(receivedInfo.toInt()/60+1);
             ui->label_2->setText("min.");
         }
-        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>1 && runnning) {
+        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>2 && runnning) {
             ui->lcdNumber_2->display(receivedInfo.toInt());
             ui->label_2->setText("sec.");
         }
-        else if(receivedInfo.toInt()<=1){
+        else if(receivedInfo.toInt()<=2 && receivedInfo.toInt()>-2){
             //tmr->stop();
             QMessageBox::about(this,"","Proccess is finished!");
             setButtonChecked(false);//Start
@@ -172,6 +172,10 @@ void MainWindow::controllerReader()
             ui->lcdNumber_2->display(0);
             ui->label_2->setText("min.");
             ui->pauseButton->setEnabled(true);
+        }
+        else if(receivedInfo.toInt()==-2)
+        {
+            ui->lcdNumber_2->display(0);
         }
 
     }
