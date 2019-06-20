@@ -8,6 +8,7 @@
         <file>accept-icon.png</file>
         <file>refresh-icon.png</file>
         <file>exit-icon.png</file>
+        <file>pause-blue.png</file>
     </qresource>
     <qresource prefix="/MyFiles/gifs">
         <file>ajax-loader.gif</file>
