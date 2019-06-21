@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/MyFiles/images">
-        <file>Bluetooth-512.png</file>
-        <file>Bluetooth-512-green.png</file>
-        <file>Stop-red.png</file>
-        <file>pause-black.png</file>
-        <file>play-green.png</file>
-        <file>accept-icon.png</file>
-        <file>refresh-icon.png</file>
-        <file>exit-icon.png</file>
-        <file>pause-blue.png</file>
+        <file>InterfaceImages/accept-icon.png</file>
+        <file>InterfaceImages/Bluetooth-512.png</file>
+        <file>InterfaceImages/Bluetooth-512-green.png</file>
+        <file>InterfaceImages/exit-icon.png</file>
+        <file>InterfaceImages/pause-black.png</file>
+        <file>InterfaceImages/pause-blue.png</file>
+        <file>InterfaceImages/play-green.png</file>
+        <file>InterfaceImages/refresh-icon.png</file>
+        <file>InterfaceImages/Stop-red.png</file>
     </qresource>
     <qresource prefix="/MyFiles/gifs">
-        <file>ajax-loader.gif</file>
-        <file>ajax-loader2.gif</file>
+        <file>InterfaceImages/ajax-loader.gif</file>
+        <file>InterfaceImages/ajax-loader2.gif</file>
     </qresource>
 </RCC>

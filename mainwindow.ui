@@ -79,7 +79,7 @@
           </property>
           <property name="icon">
            <iconset resource="myresources.qrc">
-            <normaloff>:/MyFiles/images/Bluetooth-512.png</normaloff>:/MyFiles/images/Bluetooth-512.png</iconset>
+            <normaloff>:/MyFiles/images/InterfaceImages/Bluetooth-512.png</normaloff>:/MyFiles/images/InterfaceImages/Bluetooth-512.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -415,10 +415,8 @@ font-size:30px;</string>
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normalon>:/MyFiles/images/play-green.png</normalon>
-            <activeon>:/MyFiles/images/play-green.png</activeon>
-           </iconset>
+           <iconset resource="myresources.qrc">
+            <normaloff>:/MyFiles/images/InterfaceImages/play-green.png</normaloff>:/MyFiles/images/InterfaceImages/play-green.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -458,9 +456,9 @@ font-size:30px;</string>
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normalon>:/MyFiles/images/pause-black.png</normalon>
-           </iconset>
+           <iconset resource="myresources.qrc">
+            <normaloff>:/MyFiles/images/InterfaceImages/pause-black.png</normaloff>
+            <normalon>:/MyFiles/images/pause-black.png</normalon>:/MyFiles/images/InterfaceImages/pause-black.png</iconset>
           </property>
           <property name="iconSize">
            <size>

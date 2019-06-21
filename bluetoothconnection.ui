@@ -41,7 +41,7 @@
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/accept-icon.png</normaloff>:/MyFiles/images/accept-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/accept-icon.png</normaloff>:/MyFiles/images/InterfaceImages/accept-icon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -70,7 +70,7 @@
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/refresh-icon.png</normaloff>:/MyFiles/images/refresh-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/refresh-icon.png</normaloff>:/MyFiles/images/InterfaceImages/refresh-icon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -99,7 +99,7 @@
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/exit-icon.png</normaloff>:/MyFiles/images/exit-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/exit-icon.png</normaloff>:/MyFiles/images/InterfaceImages/exit-icon.png</iconset>
        </property>
        <property name="iconSize">
         <size>

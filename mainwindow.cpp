@@ -1,7 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <vector>
-#include <QMessageBox>
 #include <QDebug>
 
 
@@ -58,10 +57,10 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
             qDebug()<<"WAS UNPAUSED"<<endl;
             socket->write("C|");
             setButtonChecked(true);
-            //ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/Stop-red.png"));
             ui->pauseButton->setEnabled(true);
             paused = false;
-            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/pause-black.png")));
+
+            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-black.png")));
             runnning = true;
             return;
         }
@@ -72,15 +71,6 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
             ui->StartStopButton->setChecked(false);
             return;
         }
-        socket->open(QIODevice::ReadWrite);
-
-        if(!tmr->isActive())
-        {
-            tmr->start(1000);
-        }
-
-        setButtonChecked(true);
-        ui->pauseButton->setEnabled(true);
 
         command = "T"+QString::number(ui->TempSpinBox->value())+"|";
         socket->write(command.toUtf8());
@@ -88,7 +78,14 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
         command = "D"+QString::number(ui->timeSpinBox->value())+"|";
         socket->write(command.toUtf8());
 
+        if(!tmr->isActive())
+        {
+            tmr->start(1000);
+        }
+
         runnning = true;
+        setButtonChecked(true);
+        ui->pauseButton->setEnabled(true);
     }
     else
     {
@@ -105,12 +102,10 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
 
 void MainWindow::updateState()
 {
-    //if()
+
     qDebug()<<"UPDATE_STATE() "<<errorShowed<<endl;
-    //qDebug()<<QBluetoothSocket::ConnectedState<<endl<<endl;
-    //{
+
     if(errorShowed){return;}
-    //connectToDevice(addressToConnect);
     if(socket->state()!=QBluetoothSocket::ConnectedState||!socket->isOpen())
     {
         //socket->con
@@ -155,7 +150,7 @@ void MainWindow::controllerReader()
         }
     }
 
-    if(receivedInfo.startsWith("m"))
+    if(receivedInfo.startsWith("m") )
     {
         receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
         receivedInfo = receivedInfo.trimmed();
@@ -163,36 +158,30 @@ void MainWindow::controllerReader()
             ui->lcdNumber_2->display(receivedInfo.toInt()/60);
             ui->label_2->setText("min.");
         }
-        else if (receivedInfo.toInt()<60 && receivedInfo.toInt()>2 && runnning) {
+        else if (receivedInfo.toInt()<60 && runnning) {
             ui->lcdNumber_2->display(receivedInfo.toInt());
 
             ui->label_2->setText("sec.");
         }
-        else if(receivedInfo.toInt()<=2 && receivedInfo.toInt()>-2){
-            //tmr->stop();
-            QMessageBox::about(this,"","Proccess is finished!");
-            setButtonChecked(false);//Start
-            ui->lcdNumber->display(0);
+    }
+    if(receivedInfo.startsWith("f")){
 
-            ui->lcdNumber_2->display(0);
-            ui->label_2->setText("min.");
-            ui->pauseButton->setEnabled(true);
-        }
-        else if(receivedInfo.toInt()==-2)
-        {
-            ui->lcdNumber_2->display(0);
-        }
+        QMessageBox::about(this,"","Proccess is finished!");
 
+        setButtonChecked(false);//Start
+        ui->lcdNumber->display(0);
+        ui->lcdNumber_2->display(0);
+        ui->label_2->setText("min.");
+        ui->pauseButton->setEnabled(true);
     }
 
     if (receivedInfo.startsWith("R"))
     {
         if(receivedInfo.contains('P'))
         {
-            //receivedInfo.contains('R',Qt::CaseInsensitive);receivedInfo.endsWith("P",Qt::CaseInsensitive)
             qDebug()<<"PAUSED"<<endl;
             paused = true;
-            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/pause-blue.png")));
+            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-blue.png")));
             runnning = false;
             setButtonChecked(false);
         }
@@ -213,13 +202,13 @@ void MainWindow::controllerReader()
 void MainWindow::setButtonChecked(bool a)
 {
     if(a == true){
-        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/Stop-red.png"));
+        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Stop-red.png"));
         if(!ui->StartStopButton->isChecked())
-        ui->StartStopButton->setChecked(true);
+            ui->StartStopButton->setChecked(true);
     }
 
     else if(a == false){
-        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/play-green.png"));
+        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/play-green.png"));
         ui->StartStopButton->setChecked(false);
     }
 }
@@ -233,7 +222,7 @@ void MainWindow::showError()
     ui->StartStopButton->setEnabled(false);
     ui->pauseButton->setEnabled(false);
 
-    ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512.png"));
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth-512.png"));
     ui->lcdNumber->display(0);
 
     ui->lcdNumber_2->display(0);
@@ -244,31 +233,22 @@ void MainWindow::showConnected()
 {
     /*gifMovie->stop();
     gifLbl->hide();*/
+
     QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
     ui->StartStopButton->setEnabled(true);
     ui->pauseButton->setEnabled(true);
     ui->BluetoothDeviceNameLabel->setText(socket->peerName());
-    ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512-green.png"));
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth-512-green.png"));
     errorShowed = false ;
+    socket->open(QIODevice::ReadWrite);
 }
 
 void MainWindow::connectToDevice(const QString &str)
 {
     qDebug()<<"connectToDevice HERE!!!!"<<endl;
-    /*if(socket->isOpen()){
-        socket->close();
-    }*/
 
     static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
     socket->connectToService(QBluetoothAddress(str), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
-    //QMessageBox::about(this,"","Connecting...");
-
-    /*gifLbl->setScaledContents(true);
-
-    gifLbl->showNormal();
-    //gifLbl->show();
-    gifMovie->start();*/
-
 }
 
 void MainWindow::on_PairButton_clicked()
@@ -291,7 +271,7 @@ void MainWindow::on_pauseButton_clicked()
 {
     socket->write("P|");
     paused = true;
-    ui->pauseButton->setIcon((QIcon(":/MyFiles/images/pause-blue.png")));
+    ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-blue.png")));
     runnning = false;
     setButtonChecked(false);
 }

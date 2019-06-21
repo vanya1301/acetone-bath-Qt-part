@@ -11,6 +11,7 @@
 #include <QElapsedTimer>
 #include "bluetoothconnection.h"
 //#include <QLCDNumber>
+#include <QMessageBox>
 #include <QLabel>
 #include <QMovie>
 
@@ -48,6 +49,7 @@ private:
     void showError();
     void showConnected();
     Ui::MainWindow *ui;
+    QMessageBox mes;
     BluetoothConnection window;
     QBluetoothSocket *socket;
     QString addressToConnect;
@@ -58,6 +60,7 @@ private:
     QMovie *gifMovie = new QMovie(":/MyFiles/gifs/ajax-loader2.gif");
     bool errorShowed =false;
     bool paused = false;
+    //bool finishedShowed = false;
    // int temperature;
    // int time;
     bool runnning=false;
