@@ -237,7 +237,8 @@ void MainWindow::showError()
     ui->lcdNumber->display(0);
 
     ui->lcdNumber_2->display(0);
-    ui->BluetoothDeviceNameLabel->setText("Reconnect the device ->")  }
+    ui->BluetoothDeviceNameLabel->setText("Reconnect the device ->");
+}
 
 void MainWindow::showConnected()
 {
@@ -248,6 +249,7 @@ void MainWindow::showConnected()
     ui->pauseButton->setEnabled(true);
     ui->BluetoothDeviceNameLabel->setText(socket->peerName());
     ui->PairButton->setIcon(QIcon(":/MyFiles/images/Bluetooth-512-green.png"));
+    errorShowed = false ;
 }
 
 void MainWindow::connectToDevice(const QString &str)
