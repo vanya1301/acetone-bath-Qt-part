@@ -160,11 +160,10 @@ void MainWindow::controllerReader()
         }
         else if (receivedInfo.toInt()<60 && runnning) {
             ui->lcdNumber_2->display(receivedInfo.toInt());
-
             ui->label_2->setText("sec.");
         }
     }
-    if(receivedInfo.startsWith("f")){
+    if(receivedInfo.startsWith("f")||receivedInfo.toInt()==1){
 
         QMessageBox::about(this,"","Proccess is finished!");
 
