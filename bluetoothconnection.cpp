@@ -29,10 +29,10 @@ BluetoothConnection::~BluetoothConnection()
 
 void BluetoothConnection::agentRestart()
 {
+    agent->stop();
     ui->listWidget->clear();
     ui->connectButton->setEnabled(false);
     devices.clear();
-    agent->stop();
     agent->start();
 }
 
@@ -66,16 +66,6 @@ void BluetoothConnection::on_listWidget_itemClicked(QListWidgetItem *item)
         if(i.name==item->text())
             BluetoothConnection::addressToConnect=i.address;
     }
-
-    // ui->listWidget->addItem(addressToConnect);
-    /*  static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
-    socket->connectToService(QBluetoothAddress(addressToConnect), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
-
-    if(socket->peerAddress().toString()==addressToConnect)
-    {
-        QMessageBox::about(this,"","Device is successfuly connected.");
-        tmr->start(200);
-    }*/
 }
 
 void BluetoothConnection::sendAddress()
@@ -87,9 +77,5 @@ void BluetoothConnection::sendAddress()
 
 void BluetoothConnection::on_refreshButton_clicked()
 {
-    ui->connectButton->setEnabled(false);
-    ui->listWidget->clear();
-    devices.clear();
-    agent->stop();
-    agent->start();
+    agentRestart();
 }

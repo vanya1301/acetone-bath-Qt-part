@@ -1,14 +1,15 @@
 <RCC>
     <qresource prefix="/MyFiles/images">
-        <file>InterfaceImages/accept-icon.png</file>
-        <file>InterfaceImages/Bluetooth-512.png</file>
-        <file>InterfaceImages/Bluetooth-512-green.png</file>
-        <file>InterfaceImages/exit-icon.png</file>
-        <file>InterfaceImages/pause-black.png</file>
-        <file>InterfaceImages/pause-blue.png</file>
-        <file>InterfaceImages/play-green.png</file>
-        <file>InterfaceImages/refresh-icon.png</file>
-        <file>InterfaceImages/Stop-red.png</file>
+        <file>InterfaceImages/Bluetooth na.png</file>
+        <file>InterfaceImages/pause.png</file>
+        <file>InterfaceImages/pause na.png</file>
+        <file>InterfaceImages/play.png</file>
+        <file>InterfaceImages/play na.png</file>
+        <file>InterfaceImages/stop.png</file>
+        <file>InterfaceImages/accept.png</file>
+        <file>InterfaceImages/close.png</file>
+        <file>InterfaceImages/refresh.png</file>
+        <file>InterfaceImages/Bluetooth.png</file>
     </qresource>
     <qresource prefix="/MyFiles/gifs">
         <file>InterfaceImages/ajax-loader.gif</file>

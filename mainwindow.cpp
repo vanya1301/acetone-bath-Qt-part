@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <vector>
 #include <QDebug>
+//#include <QLabel>
 
 
 
@@ -15,15 +16,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->StartStopButton->setEnabled(false);
     ui->pauseButton->setEnabled(false);
 
+    window.setStyleSheet("QLabel{ rgb(255, 255, 0)}");
+
+    //window-BluetoothConnection(this);
     /*gifLbl = new QLabel(this);
     gifLbl->setMovie(gifMovie);
     gifLbl->showMaximized();
     gifMovie->start();*/
 
-
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
 
     tmr = new QTimer();
+
+    /*orange_spin->setBackgroundColor(QColor(0,0,0,255));
+    QFont font = QFont("URW Gothic L",40,-1,true);
+    font.setBold(true);
+    tempSens->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Maximum);
+    tempSens->setFont(font);
+    tempSens->setStyleSheet("color:rgb(255,255,255);\nbackground-color:transparent;");
+    //tempSens->setBackgroundRole(QPalette().setBrush();
+
+   //orange_spin->setScaledSize(QSize(100,100));
+
+    //ui->tempSensLabel->setMovie(orange_spin);
+    ui->tempSensLabel->setPixmap(QPixmap(":/MyFiles/images/InterfaceImages/orange-circle.png"));
+    orange_spin->start();
+    ui->tempSensLabel->setLayout(new QHBoxLayout());
+    ui->tempSensLabel->layout()->addWidget(tempSens);
+    ui->tempSensLabel->layout()->addWidget(ui->label);
+    tempSens->setText("0");*/
 
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateState()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(controllerReader()));
@@ -60,14 +81,14 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
             ui->pauseButton->setEnabled(true);
             paused = false;
 
-            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-black.png")));
+            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause na.png")));
             runnning = true;
             return;
         }
 
         if(ui->TempSpinBox->value()<1||ui->timeSpinBox->value()<1)
         {
-            QMessageBox::warning(this,"","You have to set parametres.\nParametrs can't be equal 0.");
+            msg.warning(this,"","You have to set parametres.<br>Parametrs can't be equal 0.");
             ui->StartStopButton->setChecked(false);
             return;
         }
@@ -91,9 +112,17 @@ void MainWindow::on_StartStopButton_clicked(bool checked)
     {
         qDebug()<<"Not Checked";
         ui->pauseButton->setEnabled(false);
-        ui->lcdNumber->display(0);
+        //ui->lcdNumber->display(0);
+        if(ui->tempSensLabel->text()!="0")
+        ui->tempSensLabel->setText("0");
 
-        ui->lcdNumber_2->display(0);
+        if(ui->procTimeLabel->text()!="0")
+            ui->procTimeLabel->setText("0");
+
+        //ui->lcdNumber_2->display(0);
+        if(ui->procTimeLabel->text()!="0")
+            ui->procTimeLabel->setText("0");
+
         socket->write("s|");
         setButtonChecked(false);
         runnning = false;
@@ -145,7 +174,9 @@ void MainWindow::controllerReader()
         receivedInfo = receivedInfo.trimmed();
         if(receivedInfo.toInt()>0 && runnning)
         {
-            ui->lcdNumber->display(receivedInfo.toInt());
+            //ui->lcdNumber->display(receivedInfo.toInt());
+            if(ui->tempSensLabel->text()!=receivedInfo)
+                ui->tempSensLabel->setText(receivedInfo);
 
         }
     }
@@ -155,21 +186,32 @@ void MainWindow::controllerReader()
         receivedInfo.remove(QChar('m'), Qt::CaseInsensitive);
         receivedInfo = receivedInfo.trimmed();
         if(receivedInfo.toInt()>60 && runnning){
-            ui->lcdNumber_2->display(receivedInfo.toInt()/60);
+            //ui->lcdNumber_2->display(receivedInfo.toInt()/60);
+            if(ui->procTimeLabel->text()!=receivedInfo)
+                ui->procTimeLabel->setText(receivedInfo);
+
             ui->label_2->setText("min.");
         }
         else if (receivedInfo.toInt()<60 && runnning) {
-            ui->lcdNumber_2->display(receivedInfo.toInt());
+            //ui->lcdNumber_2->display(receivedInfo.toInt());
+            if(ui->procTimeLabel->text()!=receivedInfo)
+                ui->procTimeLabel->setText(receivedInfo);
             ui->label_2->setText("sec.");
         }
     }
-    if(receivedInfo.startsWith("f")||receivedInfo.toInt()==1){
+    if(receivedInfo.startsWith("f")){
 
-        QMessageBox::about(this,"","Proccess is finished!");
+        msg.about(this,"","Proccess is finished!");
 
         setButtonChecked(false);//Start
-        ui->lcdNumber->display(0);
-        ui->lcdNumber_2->display(0);
+        //ui->lcdNumber->display(0);
+        if(ui->tempSensLabel->text()!="0")
+            ui->tempSensLabel->setText("0");
+
+        //ui->lcdNumber_2->display(0);
+        if(ui->procTimeLabel->text()!="0")
+            ui->procTimeLabel->setText("0");
+
         ui->label_2->setText("min.");
         ui->pauseButton->setEnabled(true);
     }
@@ -180,7 +222,7 @@ void MainWindow::controllerReader()
         {
             qDebug()<<"PAUSED"<<endl;
             paused = true;
-            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-blue.png")));
+            ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause.png")));
             runnning = false;
             setButtonChecked(false);
         }
@@ -201,43 +243,51 @@ void MainWindow::controllerReader()
 void MainWindow::setButtonChecked(bool a)
 {
     if(a == true){
-        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Stop-red.png"));
+        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/stop.png"));
         if(!ui->StartStopButton->isChecked())
             ui->StartStopButton->setChecked(true);
     }
 
     else if(a == false){
-        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/play-green.png"));
+        ui->StartStopButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/play.png"));
         ui->StartStopButton->setChecked(false);
     }
 }
 
 void MainWindow::showError()
 {
-    QMessageBox::warning(this,"","Connection problem");
+    msg.warning(this,"","Connection problem");
     errorShowed = true;
     socket->abort();
     setButtonChecked(false);//Start
     ui->StartStopButton->setEnabled(false);
     ui->pauseButton->setEnabled(false);
 
-    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth-512.png"));
-    ui->lcdNumber->display(0);
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth na.png"));
+    //ui->lcdNumber->display(0);
+    if(ui->tempSensLabel->text()!="0")
+        ui->tempSensLabel->setText("0");
 
-    ui->lcdNumber_2->display(0);
-    ui->BluetoothDeviceNameLabel->setText("Reconnect the device ->");
+    //ui->lcdNumber_2->display(0);
+    if(ui->procTimeLabel->text()!="0")
+        ui->procTimeLabel->setText("0");
+
+    ui->BluetoothDeviceNameLabel->setText("Connection lost");
 }
 
 void MainWindow::showConnected()
 {
     /*gifMovie->stop();
     gifLbl->hide();*/
+    msg.about(this,"","Device is successfuly connected.<br>"+socket->peerName()+"<br>"+socket->peerAddress().toString());
 
-    QMessageBox::about(this,"","Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString());
+
+    //"Device is successfuly connected.\n"+socket->peerName()+"\n"+socket->peerAddress().toString()
+
     ui->StartStopButton->setEnabled(true);
     ui->pauseButton->setEnabled(true);
     ui->BluetoothDeviceNameLabel->setText(socket->peerName());
-    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth-512-green.png"));
+    ui->PairButton->setIcon(QIcon(":/MyFiles/images/InterfaceImages/Bluetooth.png"));
     errorShowed = false ;
     socket->open(QIODevice::ReadWrite);
 }
@@ -252,14 +302,18 @@ void MainWindow::connectToDevice(const QString &str)
 
 void MainWindow::on_PairButton_clicked()
 {
+
     if(window.isHidden()){
         window.agentRestart();
         window.setModal(true);
         window.showMaximized();
+        //window.showNormal();
+
     }
     else {
         window.setModal(true);
         window.showMaximized();
+        //window.showNormal();
         window.exec();
     }
 
@@ -270,7 +324,7 @@ void MainWindow::on_pauseButton_clicked()
 {
     socket->write("P|");
     paused = true;
-    ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause-blue.png")));
+    ui->pauseButton->setIcon((QIcon(":/MyFiles/images/InterfaceImages/pause.png")));
     runnning = false;
     setButtonChecked(false);
 }

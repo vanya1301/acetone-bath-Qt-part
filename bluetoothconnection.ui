@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>356</height>
+    <width>480</width>
+    <height>854</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Bluetooth devices</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color : rgb(50,50,50)</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -21,32 +24,46 @@
        <pointsize>25</pointsize>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color : rgb(255,255,255)</string>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>40</number>
+     </property>
      <item>
       <widget class="QPushButton" name="connectButton">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;</string>
+        <string notr="true">font-size:30px;background-color:transparent;
+background::none;
+border:none;</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/accept-icon.png</normaloff>:/MyFiles/images/InterfaceImages/accept-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/accept.png</normaloff>:/MyFiles/images/InterfaceImages/accept.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>70</width>
+         <height>70</height>
         </size>
        </property>
        <property name="flat">
@@ -57,25 +74,28 @@
      <item>
       <widget class="QPushButton" name="refreshButton">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;</string>
+        <string notr="true">font-size:30px;background-color:transparent;
+background::none;
+border:none;</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/refresh-icon.png</normaloff>:/MyFiles/images/InterfaceImages/refresh-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/refresh.png</normaloff>
+         <activeon>:/MyFiles/images/InterfaceImages/play na.png</activeon>:/MyFiles/images/InterfaceImages/refresh.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>70</width>
+         <height>70</height>
         </size>
        </property>
        <property name="flat">
@@ -86,25 +106,27 @@
      <item>
       <widget class="QPushButton" name="exitButton">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;</string>
+        <string notr="true">font-size:30px;background-color:transparent;
+background::none;
+border:none;</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/exit-icon.png</normaloff>:/MyFiles/images/InterfaceImages/exit-icon.png</iconset>
+         <normaloff>:/MyFiles/images/InterfaceImages/close.png</normaloff>:/MyFiles/images/InterfaceImages/close.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>55</width>
-         <height>55</height>
+         <width>70</width>
+         <height>70</height>
         </size>
        </property>
        <property name="flat">

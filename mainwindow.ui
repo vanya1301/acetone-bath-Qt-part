@@ -6,18 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>372</width>
-    <height>580</height>
+    <width>480</width>
+    <height>854</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(32, 32, 32);
+</string>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -44,8 +57,12 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>21</pointsize>
+            <family>URW Gothic L</family>
+            <pointsize>30</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #ffffff</string>
           </property>
           <property name="text">
            <string>No connection</string>
@@ -72,19 +89,22 @@
            <enum>Qt::DefaultContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">font-size:30px;</string>
+           <string notr="true">#PairButton{
+font-size:30px;
+}
+</string>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="myresources.qrc">
-            <normaloff>:/MyFiles/images/InterfaceImages/Bluetooth-512.png</normaloff>:/MyFiles/images/InterfaceImages/Bluetooth-512.png</iconset>
+            <normaloff>:/MyFiles/images/InterfaceImages/Bluetooth na.png</normaloff>:/MyFiles/images/InterfaceImages/Bluetooth na.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>60</width>
-            <height>60</height>
+            <width>59</width>
+            <height>59</height>
            </size>
           </property>
           <property name="flat">
@@ -96,10 +116,36 @@
       </item>
       <item>
        <widget class="Line" name="line_4">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(49, 49, 49);
+</string>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -107,38 +153,97 @@
          <widget class="QLabel" name="TempLabel">
           <property name="font">
            <font>
-            <pointsize>18</pointsize>
-            <weight>75</weight>
+            <family>URW Gothic L</family>
+            <pointsize>25</pointsize>
+            <weight>50</weight>
             <italic>false</italic>
-            <bold>true</bold>
+            <bold>false</bold>
             <underline>false</underline>
             <strikeout>false</strikeout>
             <stylestrategy>PreferDefault</stylestrategy>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: #ffffff</string>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
           <property name="text">
            <string>Temperature:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
+          <property name="margin">
+           <number>4</number>
+          </property>
+          <property name="indent">
+           <number>4</number>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QSpinBox" name="TempSpinBox">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="font">
            <font>
-            <pointsize>40</pointsize>
+            <family>URW Gothic L</family>
+            <pointsize>35</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+            <kerning>false</kerning>
            </font>
           </property>
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
+          <property name="autoFillBackground">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+
+</string>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhDigitsOnly|Qt::ImhNoPredictiveText</set>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
           </property>
           <property name="buttonSymbols">
            <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="correctionMode">
+           <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+          </property>
+          <property name="showGroupSeparator" stdset="0">
+           <bool>false</bool>
+          </property>
+          <property name="suffix">
+           <string/>
           </property>
           <property name="minimum">
            <number>0</number>
@@ -154,14 +259,56 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>URW Gothic L</family>
+            <pointsize>21</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(255,255,255);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="text">
+           <string>  ℃</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="margin">
+           <number>9</number>
+          </property>
+          <property name="indent">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -171,21 +318,34 @@
         <item>
          <widget class="QLabel" name="TimeLabel">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="font">
            <font>
-            <pointsize>18</pointsize>
-            <weight>75</weight>
+            <family>URW Gothic L</family>
+            <pointsize>25</pointsize>
+            <weight>50</weight>
             <italic>false</italic>
-            <bold>true</bold>
+            <bold>false</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: #ffffff</string>
+          </property>
           <property name="text">
-           <string>Time (minutes):</string>
+           <string>Time:  </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          </property>
+          <property name="margin">
+           <number>4</number>
+          </property>
+          <property name="indent">
+           <number>4</number>
           </property>
          </widget>
         </item>
@@ -199,199 +359,385 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>40</pointsize>
+            <family>URW Gothic L</family>
+            <pointsize>35</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+            <kerning>false</kerning>
            </font>
           </property>
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="tabletTracking">
+           <bool>false</bool>
+          </property>
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
+          <property name="autoFillBackground">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhDigitsOnly|Qt::ImhNoPredictiveText</set>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
           </property>
           <property name="buttonSymbols">
            <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="correctionMode">
+           <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+          </property>
+          <property name="showGroupSeparator" stdset="0">
+           <bool>false</bool>
+          </property>
+          <property name="maximum">
+           <number>10000</number>
           </property>
           <property name="displayIntegerBase">
            <number>10</number>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <family>URW Gothic L</family>
+            <pointsize>21</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(255,255,255);</string>
+          </property>
+          <property name="text">
+           <string>min</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          </property>
+          <property name="margin">
+           <number>12</number>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line_3">
+       <spacer name="verticalSpacer_5">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
-       </widget>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>90</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <property name="leftMargin">
+         <number>50</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>50</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="QLCDNumber" name="lcdNumber">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>20</pointsize>
-            <kerning>true</kerning>
-           </font>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="lineWidth">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="spacing">
            <number>0</number>
           </property>
-          <property name="midLineWidth">
+          <item>
+           <widget class="QLabel" name="tempSensLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>URW Gothic L</family>
+              <pointsize>45</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="toolTipDuration">
+             <number>-1</number>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255,255,255);</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignBottom|Qt::AlignJustify</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <property name="indent">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>URW Gothic L</family>
+              <pointsize>21</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+background-color:transparent
+</string>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>5</number>
+            </property>
+            <property name="text">
+             <string>℃</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+            <property name="wordWrap">
+             <bool>false</bool>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <property name="indent">
+             <number>7</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <property name="spacing">
            <number>0</number>
           </property>
-          <property name="smallDecimalPoint">
-           <bool>false</bool>
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
           </property>
-          <property name="digitCount">
-           <number>2</number>
-          </property>
-          <property name="mode">
-           <enum>QLCDNumber::Dec</enum>
-          </property>
-          <property name="segmentStyle">
-           <enum>QLCDNumber::Flat</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>40</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-            <underline>false</underline>
-            <strikeout>false</strikeout>
-           </font>
-          </property>
-          <property name="text">
-           <string>℃</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLCDNumber" name="lcdNumber_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>20</pointsize>
-           </font>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="lineWidth">
-           <number>0</number>
-          </property>
-          <property name="midLineWidth">
-           <number>0</number>
-          </property>
-          <property name="smallDecimalPoint">
-           <bool>false</bool>
-          </property>
-          <property name="digitCount">
-           <number>2</number>
-          </property>
-          <property name="mode">
-           <enum>QLCDNumber::Dec</enum>
-          </property>
-          <property name="segmentStyle">
-           <enum>QLCDNumber::Flat</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>40</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-            <underline>false</underline>
-            <strikeout>false</strikeout>
-           </font>
-          </property>
-          <property name="text">
-           <string>m.</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
+          <item>
+           <widget class="QLabel" name="procTimeLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>URW Gothic L</family>
+              <pointsize>45</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255,255,255);</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignBottom|Qt::AlignJustify</set>
+            </property>
+            <property name="wordWrap">
+             <bool>false</bool>
+            </property>
+            <property name="indent">
+             <number>3</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>URW Gothic L</family>
+              <pointsize>21</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255,255,255);</string>
+            </property>
+            <property name="text">
+             <string>m.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+            </property>
+            <property name="margin">
+             <number>6</number>
+            </property>
+            <property name="indent">
+             <number>6</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
       <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>30</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="Line" name="line_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(49, 49, 49);
+</string>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>14</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QPushButton" name="StartStopButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+           <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -399,7 +745,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>50</height>
+            <height>0</height>
            </size>
           </property>
           <property name="autoFillBackground">
@@ -416,12 +762,12 @@ font-size:30px;</string>
           </property>
           <property name="icon">
            <iconset resource="myresources.qrc">
-            <normaloff>:/MyFiles/images/InterfaceImages/play-green.png</normaloff>:/MyFiles/images/InterfaceImages/play-green.png</iconset>
+            <normaloff>:/MyFiles/images/InterfaceImages/play.png</normaloff>:/MyFiles/images/InterfaceImages/play.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>60</width>
-            <height>60</height>
+            <width>70</width>
+            <height>70</height>
            </size>
           </property>
           <property name="checkable">
@@ -447,23 +793,28 @@ font-size:30px;</string>
         <item>
          <widget class="QPushButton" name="pauseButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+           <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:transparent;
+background::none;
+border:none;
+font-size:30px;</string>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="myresources.qrc">
-            <normaloff>:/MyFiles/images/InterfaceImages/pause-black.png</normaloff>
-            <normalon>:/MyFiles/images/pause-black.png</normalon>:/MyFiles/images/InterfaceImages/pause-black.png</iconset>
+            <normaloff>:/MyFiles/images/InterfaceImages/pause na.png</normaloff>:/MyFiles/images/InterfaceImages/pause na.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>60</width>
-            <height>60</height>
+            <width>70</width>
+            <height>70</height>
            </size>
           </property>
           <property name="flat">
@@ -476,17 +827,14 @@ font-size:30px;</string>
      </layout>
     </item>
     <item>
-     <spacer name="verticalSpacer">
+     <spacer name="verticalSpacer_4">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::MinimumExpanding</enum>
-      </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>17</width>
-        <height>140</height>
+        <width>10</width>
+        <height>40</height>
        </size>
       </property>
      </spacer>

@@ -14,6 +14,7 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QMovie>
+#include <QtGui>
 
 
 
@@ -49,15 +50,15 @@ private:
     void showError();
     void showConnected();
     Ui::MainWindow *ui;
-    QMessageBox mes;
+    QMessageBox msg;
     BluetoothConnection window;
     QBluetoothSocket *socket;
     QString addressToConnect;
     QString command;
     QString receivedInfo="";
     QTimer *tmr;
-    QLabel *gifLbl;
-    QMovie *gifMovie = new QMovie(":/MyFiles/gifs/ajax-loader2.gif");
+    QLabel *tempSens = new QLabel();
+    QMovie *orange_spin = new QMovie(":/MyFiles/orange-spin.gif");
     bool errorShowed =false;
     bool paused = false;
     //bool finishedShowed = false;
