@@ -81,25 +81,25 @@
            </sizepolicy>
           </property>
           <property name="font">
-           <font>
-            <pointsize>-1</pointsize>
-           </font>
+           <font/>
           </property>
           <property name="contextMenuPolicy">
            <enum>Qt::DefaultContextMenu</enum>
           </property>
           <property name="styleSheet">
            <string notr="true">#PairButton{
-font-size:30px;
+border-image: url(:/MyFiles/images/InterfaceImages/Bluetooth na.png);
+width:59px;
+height:59px;
+background-color: transparent;
+}
+#PairButton:pressed{
+border-image: url(:/MyFiles/images/InterfaceImages/Bluetooth na_pressed.png);
 }
 </string>
           </property>
           <property name="text">
            <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="myresources.qrc">
-            <normaloff>:/MyFiles/images/InterfaceImages/Bluetooth na.png</normaloff>:/MyFiles/images/InterfaceImages/Bluetooth na.png</iconset>
           </property>
           <property name="iconSize">
            <size>

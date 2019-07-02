@@ -10,6 +10,11 @@
         <file>InterfaceImages/close.png</file>
         <file>InterfaceImages/refresh.png</file>
         <file>InterfaceImages/Bluetooth.png</file>
+        <file>InterfaceImages/close_pressed.png</file>
+        <file>InterfaceImages/accept_pressed.png</file>
+        <file>InterfaceImages/Bluetooth na_pressed.png</file>
+        <file>InterfaceImages/accept_disabled.png</file>
+        <file>InterfaceImages/refresh_pressed.png</file>
     </qresource>
     <qresource prefix="/MyFiles/gifs">
         <file>InterfaceImages/ajax-loader.gif</file>

@@ -49,16 +49,28 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;background-color:transparent;
-background::none;
-border:none;</string>
+        <string notr="true">#connectButton:disabled{
+border-image: url(:/MyFiles/images/InterfaceImages/accept_disabled.png);
+width:70px;
+height:70px;
+}
+#connectButton:enabled{
+border-image: url(:/MyFiles/images/InterfaceImages/accept.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}
+#connectButton:pressed{
+border-image: url(:/MyFiles/images/InterfaceImages/accept_pressed.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}
+
+</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/accept.png</normaloff>:/MyFiles/images/InterfaceImages/accept.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -80,17 +92,21 @@ border:none;</string>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;background-color:transparent;
-background::none;
-border:none;</string>
+        <string notr="true">#refreshButton{
+border-image: url(:/MyFiles/images/InterfaceImages/refresh.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}
+#refreshButton:pressed{
+border-image: url(:/MyFiles/images/InterfaceImages/refresh_pressed.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/refresh.png</normaloff>
-         <activeon>:/MyFiles/images/InterfaceImages/play na.png</activeon>:/MyFiles/images/InterfaceImages/refresh.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -112,16 +128,21 @@ border:none;</string>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size:30px;background-color:transparent;
-background::none;
-border:none;</string>
+        <string notr="true">#exitButton{
+border-image: url(:/MyFiles/images/InterfaceImages/close.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}
+#exitButton:pressed{
+border-image: url(:/MyFiles/images/InterfaceImages/close_pressed.png);
+background-color:transparent;
+width:70px;
+height:70px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="myresources.qrc">
-         <normaloff>:/MyFiles/images/InterfaceImages/close.png</normaloff>:/MyFiles/images/InterfaceImages/close.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -138,8 +159,6 @@ border:none;</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="myresources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
